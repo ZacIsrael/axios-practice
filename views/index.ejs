@@ -42,10 +42,13 @@
 
         <!-- log for debugging -->
        <!-- <pre><%= JSON.stringify(locals.data, null, 2) %></pre> -->
-
+      <!-- checks to see if the data object exists in the lcoals parameter -->
+       <% if(locals.data) { %>
+    
+       
        <!-- checks to see if activity, type, & participants are fields in the data object parameter -->
-      <% if(locals.data.activity && locals.data.type && locals.data.participants){ %>
-
+      <% if(data.activity && data.type && data.participants){ %>
+      
       <article class="card-item">
         <h2 class="card-activity">
           <!-- Show Activity -->
@@ -63,13 +66,14 @@
           </span>
         </div>
       </article>
-      <% } else { %>
+      <% } %>
+    <% } else { %>
         <!-- an error occured -->
-
-     
-
+      <!-- the locals parameter either contains a data object or an 'error' 
+       field that contains the error message returned from the axios request -->
       <div id="tag-error" class="tag-error">
         <!-- Show any errors that were sent from the backend -->
+         <%=error%>
       </div>
     <% } %>
 

@@ -51,12 +51,7 @@ app.post("/", async (req, res) => {
     const result = response.data;
     // could be possibly used for filtering in the EJS file
     result.method = "POST";
-    // console.log(
-    //   "post request: result = ",
-    //   result,
-    //   ", result.length = ",
-    //   result.length
-    // );
+
     // randomly picking one of the activities that was retrieved
     let randomActivity = result[Math.floor(Math.random() * result.length)];
     console.log('randomActivity = ', randomActivity);
@@ -69,7 +64,7 @@ app.post("/", async (req, res) => {
     // "No activities that match your criteria."
     console.error("Failed to make request:", error.message);
     res.render("index.ejs", {
-      error: error.message,
+        error: "No activities that match your criteria."
     });
   }
 });

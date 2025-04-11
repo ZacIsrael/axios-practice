@@ -34,25 +34,44 @@
       <button type="submit" class="form-submit">Go</button>
     </form>
     <section id="cards" class="cards">
+
+
+      <!-- locals allows a null check; if I did not put 'locals' in front 
+       of the field names, I would have recieved an error because EJS acts 
+       as if the parameters already exist -->
+
+        <!-- log for debugging -->
+       <!-- <pre><%= JSON.stringify(locals.data, null, 2) %></pre> -->
+
+       <!-- checks to see if activity, type, & participants are fields in the data object parameter -->
+      <% if(locals.data.activity && locals.data.type && locals.data.participants){ %>
+
       <article class="card-item">
         <h2 class="card-activity">
           <!-- Show Activity -->
+           <%=data.activity%>
         </h2>
         <div class="card-info">
           <span class="card-type">
             <!-- Show Activity type -->
+            <%=data.type%>
           </span>
           <span class="card-participants">
             <!-- participants: Show participant number -->
+            participants: <%=data.participants%>
             <span class="card-number"></span>
           </span>
         </div>
       </article>
+      <% } else { %>
+        <!-- an error occured -->
 
+     
 
       <div id="tag-error" class="tag-error">
         <!-- Show any errors that were sent from the backend -->
       </div>
+    <% } %>
 
     </section>
   </div>

@@ -5,6 +5,9 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 
+// Set EJS as the templating engine
+app.set("view engine", "ejs");
+
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -13,8 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   JSON data from response.data and edit the index.ejs file accordingly.
 app.get("/", async (req, res) => {
   try {
+    // console.log('Deafult GET request\'s body = ', req.body)
     const response = await axios.get("https://bored-api.appbrewery.com/random");
     const result = response.data;
+    // used for filtering in the EJS file
+    result.method = 'GET';
+    console.log("default route: result = ", result);
     res.render("index.ejs", { data: result });
   } catch (error) {
     console.error("Failed to make request:", error.message);
@@ -28,13 +35,16 @@ app.post("/", async (req, res) => {
   console.log(req.body);
 
   // Step 2: Play around with the drop downs and see what gets logged.
-  // Use axios to make an API request to the /filter endpoint. Making
-  // sure you're passing both the type and participants queries.
-  // Render the index.ejs file with a single *random* activity that comes back
-  // from the API request.
-  // Step 3: If you get a 404 error (resource not found) from the API request.
-  // Pass an error to the index.ejs to tell the user:
-  // "No activities that match your criteria."
+  try {
+    // Use axios to make an API request to the /filter endpoint. Making
+    // sure you're passing both the type and participants queries.
+    // Render the index.ejs file with a single *random* activity that comes back
+    // from the API request.
+  } catch (error) {
+    // Step 3: If you get a 404 error (resource not found) from the API request.
+    // Pass an error to the index.ejs to tell the user:
+    // "No activities that match your criteria."
+  }
 });
 
 app.listen(port, () => {
